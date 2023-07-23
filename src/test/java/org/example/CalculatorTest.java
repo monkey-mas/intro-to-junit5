@@ -1,14 +1,15 @@
 package org.example;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorTest {
     private Calculator calculator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // Set up before running each @Test method,
         // e.g., create mock instance.
@@ -22,8 +23,9 @@ public class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void Add_WhereSumOverflows_ThrowsIllegalArgumentException() {
-        calculator.add(Integer.MAX_VALUE, 1);
+        assertThrows(IllegalArgumentException.class,
+                () -> calculator.add(Integer.MAX_VALUE, 1));
     }
 }
