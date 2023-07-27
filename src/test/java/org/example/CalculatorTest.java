@@ -1,7 +1,6 @@
 package org.example;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,16 +15,28 @@ public class CalculatorTest {
         calculator = new Calculator();
     }
 
-    @Test
-    public void Add_ReturnsSum() {
-        int actual = calculator.add(1, 1);
-        int expected = 1 + 1;
-        assertEquals(expected, actual);
-    }
+    @Nested
+    @DisplayName("#add")
+    class Add {
+        @Nested
+        @DisplayName("where the sum doesn't overflow")
+        class WhereSumDoesNotOverflow {
+            @Test
+            void returnsSum() {
+                int actual = calculator.add(1, 1);
+                int expected = 1 + 1;
+                assertEquals(expected, actual);
+            }
+        }
 
-    @Test
-    public void Add_WhereSumOverflows_ThrowsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> calculator.add(Integer.MAX_VALUE, 1));
+        @Nested
+        @DisplayName("where the sum overflows")
+        class WhereSumOverflows {
+            @Test
+            void throwsIllegalArgumentException() {
+                assertThrows(IllegalArgumentException.class,
+                        () -> calculator.add(Integer.MAX_VALUE, 1));
+            }
+        }
     }
 }
