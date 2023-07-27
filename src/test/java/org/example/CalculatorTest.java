@@ -24,7 +24,7 @@ public class CalculatorTest {
             @Nested
             @DisplayName("given an identity element (0) as a param")
             class GivenIdentityElement {
-                @Test
+                @RepeatedTest(20)
                 void returnsSum() {
                     int expected = between(Integer.MIN_VALUE, Integer.MAX_VALUE);
                     int actual = calculator.add(0, expected);
