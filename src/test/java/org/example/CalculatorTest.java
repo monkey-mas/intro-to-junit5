@@ -35,11 +35,22 @@ public class CalculatorTest {
                 }
             }
 
-            @Test
+            @RepeatedTest(20)
             void returnsSum() {
-                int actual = calculator.add(1, 1);
-                int expected = 1 + 1;
+                int a = between(Integer.MIN_VALUE, Integer.MAX_VALUE);
+                int min = a < 0
+                        ? Integer.MIN_VALUE - a
+                        : Integer.MIN_VALUE;
+                int max = a < 0
+                        ? Integer.MAX_VALUE
+                        : Integer.MAX_VALUE - a;
+                int b = between(min, max);
+
+                int actual = calculator.add(a, b);
+                int actual2 = calculator.add(b, a);
+                int expected = a + b;
                 assertEquals(expected, actual);
+                assertEquals(expected, actual2);
             }
         }
 
